@@ -6,14 +6,14 @@
     <div class="space-y-8">
         <section class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-                <p class="text-sm font-semibold uppercase tracking-wide text-teal-700">Groups</p>
-                <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">Your groups</h1>
+                <p class="text-sm font-semibold uppercase tracking-wide text-splitwise-dark">Groups</p>
+                <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Your groups</h1>
                 <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
                     Manage shared spaces, members, and expenses.
                 </p>
             </div>
             <a href="{{ route('groups.create') }}"
-               class="inline-flex items-center justify-center rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-teal-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2">
+               class="inline-flex items-center justify-center rounded-xl bg-splitwise px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-splitwise-dark hover:shadow-md focus:outline-none focus:ring-2 focus:ring-splitwise focus:ring-offset-2">
                 New Group
             </a>
         </section>
@@ -23,32 +23,32 @@
                 <article class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md">
                     <div class="flex items-start justify-between gap-4">
                         <div>
-                            <h2 class="text-lg font-semibold text-slate-950">
-                                <a href="{{ route('groups.show', $group) }}" class="transition hover:text-teal-700">{{ $group->name }}</a>
+                            <h2 class="text-lg font-semibold text-slate-900">
+                                <a href="{{ route('groups.show', $group) }}" class="transition hover:text-splitwise-dark">{{ $group->name }}</a>
                             </h2>
                             <p class="mt-1 text-sm text-slate-500">Owner: {{ $group->owner->name }}</p>
                         </div>
-                        <span class="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">Active</span>
+                        <span class="rounded-full bg-splitwise-light px-3 py-1 text-xs font-semibold text-splitwise-dark">Active</span>
                     </div>
 
                     <div class="mt-6 grid grid-cols-2 gap-3">
                         <div class="rounded-xl bg-slate-50 p-4">
                             <p class="text-xs font-medium uppercase tracking-wide text-slate-500">Members</p>
-                            <p class="mt-1 text-2xl font-bold text-slate-950">{{ $group->users_count }}</p>
+                            <p class="mt-1 text-2xl font-bold text-slate-900">{{ $group->users_count }}</p>
                         </div>
                         <div class="rounded-xl bg-slate-50 p-4">
                             <p class="text-xs font-medium uppercase tracking-wide text-slate-500">Expenses</p>
-                            <p class="mt-1 text-2xl font-bold text-slate-950">{{ $group->expenses_count }}</p>
+                            <p class="mt-1 text-2xl font-bold text-slate-900">{{ $group->expenses_count }}</p>
                         </div>
                     </div>
 
                     <div class="mt-6 flex flex-wrap gap-3">
                         <a href="{{ route('groups.show', $group) }}"
-                           class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition duration-200 hover:bg-slate-50 hover:text-slate-950">
+                           class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition duration-200 hover:bg-slate-50 hover:text-slate-900">
                             Open
                         </a>
                         <a href="{{ route('groups.expenses.create', $group) }}"
-                           class="inline-flex items-center justify-center rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-teal-700 hover:shadow-md">
+                           class="inline-flex items-center justify-center rounded-xl bg-splitwise px-4 py-2 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-splitwise-dark hover:shadow-md">
                             Add Expense
                         </a>
                     </div>
@@ -62,3 +62,4 @@
         </section>
     </div>
 @endsection
+

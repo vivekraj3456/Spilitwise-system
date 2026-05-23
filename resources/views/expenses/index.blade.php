@@ -5,8 +5,8 @@
 @section('content')
     <div class="space-y-8">
         <section>
-            <p class="text-sm font-semibold uppercase tracking-wide text-teal-700">Expenses</p>
-            <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl">All expenses</h1>
+            <p class="text-sm font-semibold uppercase tracking-wide text-splitwise-dark">Expenses</p>
+            <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">All expenses</h1>
             <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
                 A consolidated list of transactions from every group you belong to.
             </p>
@@ -14,7 +14,7 @@
 
         <section class="rounded-xl border border-slate-200 bg-white shadow-sm">
             <div class="border-b border-slate-100 px-6 py-5">
-                <h2 class="text-lg font-semibold text-slate-950">Transactions</h2>
+                <h2 class="text-lg font-semibold text-slate-900">Transactions</h2>
                 <p class="mt-1 text-sm text-slate-500">Sorted by newest first.</p>
             </div>
 
@@ -40,14 +40,14 @@
                             @foreach ($expenses as $expense)
                                 <tr class="transition duration-200 hover:bg-slate-50">
                                     <td class="whitespace-nowrap px-6 py-4">
-                                        <a href="{{ route('groups.expenses.show', [$expense->group, $expense]) }}" class="font-semibold text-slate-900 transition hover:text-teal-700">{{ $expense->title }}</a>
+                                        <a href="{{ route('groups.expenses.show', [$expense->group, $expense]) }}" class="font-semibold text-slate-900 transition hover:text-splitwise-dark">{{ $expense->title }}</a>
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700">{{ $expense->group->name }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">
-                                        <span class="rounded-full bg-teal-50 px-2.5 py-1 text-xs font-semibold text-teal-700">Equal split</span>
+                                        <span class="rounded-full bg-splitwise-light px-2.5 py-1 text-xs font-semibold text-splitwise-dark">Equal split</span>
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700">{{ $expense->payer->name }}</td>
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm font-bold text-slate-950">{{ \App\Services\Money::formatCents($expense->amount_cents) }}</td>
+                                    <td class="whitespace-nowrap px-6 py-4 text-sm font-bold text-slate-900">{{ \App\Services\Money::formatCents($expense->amount_cents) }}</td>
                                     <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-500">{{ $expense->expense_date->format('M j, Y') }}</td>
                                 </tr>
                             @endforeach
@@ -62,3 +62,4 @@
         </section>
     </div>
 @endsection
+

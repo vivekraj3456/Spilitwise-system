@@ -22,7 +22,7 @@
                             All Groups
                         </a>
                         <a href="{{ route('groups.expenses.create', $group) }}"
-                           class="inline-flex items-center justify-center rounded-xl bg-teal-400 px-4 py-2.5 text-sm font-semibold text-slate-950 shadow-sm transition duration-200 hover:bg-teal-300 hover:shadow-md">
+                           class="inline-flex items-center justify-center rounded-xl bg-teal-400 px-4 py-2.5 text-sm font-semibold text-slate-900 shadow-sm transition duration-200 hover:bg-teal-300 hover:shadow-md">
                             Add Expense
                         </a>
                     </div>
@@ -32,11 +32,11 @@
             <div class="grid gap-4 p-6 sm:grid-cols-2 lg:grid-cols-4">
                 <div class="rounded-xl bg-slate-50 p-4">
                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Members</p>
-                    <p class="mt-1 text-2xl font-bold text-slate-950">{{ $group->users->count() }}</p>
+                    <p class="mt-1 text-2xl font-bold text-slate-900">{{ $group->users->count() }}</p>
                 </div>
                 <div class="rounded-xl bg-slate-50 p-4">
                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Expenses</p>
-                    <p class="mt-1 text-2xl font-bold text-slate-950">{{ $group->expenses->count() }}</p>
+                    <p class="mt-1 text-2xl font-bold text-slate-900">{{ $group->expenses->count() }}</p>
                 </div>
                 <div class="rounded-xl bg-slate-50 p-4 sm:col-span-2">
                     <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Members</p>
@@ -54,7 +54,7 @@
 
         <section class="rounded-xl border border-slate-200 bg-white shadow-sm">
             <div class="border-b border-slate-100 px-6 py-5">
-                <h2 class="text-lg font-semibold text-slate-950">Balances</h2>
+                <h2 class="text-lg font-semibold text-slate-900">Balances</h2>
                 <p class="mt-1 text-sm text-slate-500">Paid, share, and net position for each member.</p>
             </div>
             <div class="overflow-x-auto">
@@ -76,7 +76,7 @@
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700">{{ \App\Services\Money::formatCents($balance['paid_cents']) }}</td>
                                 <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700">{{ \App\Services\Money::formatCents($balance['owed_cents']) }}</td>
-                                <td class="whitespace-nowrap px-6 py-4 text-sm font-bold {{ $balance['net_cents'] > 0 ? 'text-emerald-700' : ($balance['net_cents'] < 0 ? 'text-red-700' : 'text-slate-500') }}">
+                                <td class="whitespace-nowrap px-6 py-4 text-sm font-bold {{ $balance['net_cents'] > 0 ? 'text-splitwise-dark' : ($balance['net_cents'] < 0 ? 'text-danger' : 'text-slate-500') }}">
                                     {{ \App\Services\Money::formatCents($balance['net_cents']) }}
                                 </td>
                             </tr>
@@ -89,7 +89,7 @@
         <section class="grid gap-6 xl:grid-cols-[0.85fr_1fr]">
             <div class="rounded-xl border border-slate-200 bg-white shadow-sm">
                 <div class="border-b border-slate-100 px-6 py-5">
-                    <h2 class="text-lg font-semibold text-slate-950">Members</h2>
+                    <h2 class="text-lg font-semibold text-slate-900">Members</h2>
                     <p class="mt-1 text-sm text-slate-500">People included in new equal splits.</p>
                 </div>
                 <div class="divide-y divide-slate-100">
@@ -109,7 +109,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"
-                                            class="inline-flex items-center justify-center rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm font-semibold text-red-700 transition duration-200 hover:bg-red-100 disabled:cursor-not-allowed disabled:opacity-70"
+                                            class="inline-flex items-center justify-center rounded-xl border border-red-200 bg-danger-light px-3 py-2 text-sm font-semibold text-danger transition duration-200 hover:bg-red-100 disabled:cursor-not-allowed disabled:opacity-70"
                                             data-loading-label="Removing...">
                                         Remove
                                     </button>
@@ -122,7 +122,7 @@
 
             @if (auth()->id() === $group->owner_id)
                 <div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-                    <h2 class="text-lg font-semibold text-slate-950">Add member</h2>
+                    <h2 class="text-lg font-semibold text-slate-900">Add member</h2>
                     <p class="mt-1 text-sm text-slate-500">Invite an existing user by email.</p>
                     <form class="mt-5 space-y-4" method="POST" action="{{ route('groups.members.store', $group) }}" data-loading-form>
                         @csrf
@@ -133,13 +133,13 @@
                                    type="email"
                                    value="{{ old('email') }}"
                                    required
-                                class="mt-2 block w-full rounded-xl glass-input focus:border-emerald-300 focus:ring-emerald-300/60">
+                                class="mt-2 block w-full rounded-xl border-slate-300 bg-white placeholder:text-slate-400 focus:border-splitwise focus:ring-splitwise shadow-sm focus:border-splitwise focus:ring-splitwise/60">
                             @error('email')
-                                <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                                <p class="mt-2 text-sm text-danger">{{ $message }}</p>
                             @enderror
                         </div>
                         <button type="submit"
-                                class="inline-flex items-center justify-center rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-teal-700 disabled:cursor-not-allowed disabled:opacity-70"
+                                class="inline-flex items-center justify-center rounded-xl bg-splitwise px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-splitwise-dark disabled:cursor-not-allowed disabled:opacity-70"
                                 data-loading-label="Adding...">
                             Add Member
                         </button>
@@ -151,11 +151,11 @@
         <section class="rounded-xl border border-slate-200 bg-white shadow-sm">
             <div class="flex flex-col gap-3 border-b border-slate-100 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h2 class="text-lg font-semibold text-slate-950">Expenses</h2>
+                    <h2 class="text-lg font-semibold text-slate-900">Expenses</h2>
                     <p class="mt-1 text-sm text-slate-500">Shared costs recorded for this group.</p>
                 </div>
                 <a href="{{ route('groups.expenses.create', $group) }}"
-                   class="inline-flex items-center justify-center rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-teal-700 hover:shadow-md">
+                   class="inline-flex items-center justify-center rounded-xl bg-splitwise px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-splitwise-dark hover:shadow-md">
                     Add Expense
                 </a>
             </div>
@@ -181,13 +181,13 @@
                             @foreach ($group->expenses as $expense)
                                 <tr class="transition duration-200 hover:bg-slate-50">
                                     <td class="whitespace-nowrap px-6 py-4">
-                                        <a href="{{ route('groups.expenses.show', [$group, $expense]) }}" class="font-semibold text-slate-900 transition hover:text-teal-700">{{ $expense->title }}</a>
+                                        <a href="{{ route('groups.expenses.show', [$group, $expense]) }}" class="font-semibold text-slate-900 transition hover:text-splitwise-dark">{{ $expense->title }}</a>
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4">
-                                        <span class="rounded-full bg-teal-50 px-2.5 py-1 text-xs font-semibold text-teal-700">Equal split</span>
+                                        <span class="rounded-full bg-splitwise-light px-2.5 py-1 text-xs font-semibold text-splitwise-dark">Equal split</span>
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700">{{ $expense->payer->name }}</td>
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm font-bold text-slate-950">{{ \App\Services\Money::formatCents($expense->amount_cents) }}</td>
+                                    <td class="whitespace-nowrap px-6 py-4 text-sm font-bold text-slate-900">{{ \App\Services\Money::formatCents($expense->amount_cents) }}</td>
                                     <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-500">{{ $expense->expense_date->format('M j, Y') }}</td>
                                 </tr>
                             @endforeach
@@ -198,3 +198,4 @@
         </section>
     </div>
 @endsection
+

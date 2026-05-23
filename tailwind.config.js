@@ -14,6 +14,24 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                splitwise: {
+                    DEFAULT: '#5BC5A7',
+                    dark: '#4AA68A',
+                    light: '#E6F8F3',
+                },
+                danger: {
+                    DEFAULT: '#FF652F',
+                    light: '#FFEBE5',
+                },
+                slate: {
+                    50: '#f8fafc',
+                    100: '#f1f5f9',
+                    200: '#e2e8f0',
+                    800: '#1e293b',
+                    900: '#0f172a',
+                },
+            },
         },
     },
 

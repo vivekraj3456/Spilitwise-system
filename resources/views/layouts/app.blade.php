@@ -14,14 +14,14 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="theme-glass antialiased bg-zinc-950 text-white">
+<body class="font-sans antialiased bg-slate-50 text-slate-900">
     <div x-data="{ sidebarOpen: false }" class="min-h-screen">
         @auth
             @include('layouts.navigation')
         @endauth
 
         @isset($header)
-            <header class="glass-panel border-b border-white/10 lg:pl-72 backdrop-blur-xl">
+            <header class="bg-white border-b border-slate-200 lg:pl-72 shadow-sm sticky top-0 z-20">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
@@ -31,19 +31,19 @@
         <main class="@auth lg:pl-72 @endauth">
             @hasSection('content')
                 <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-                    <div class="app-frame rounded-3xl px-8 py-10 bg-white/5 backdrop-blur-3xl border border-white/10 shadow-2xl shadow-black/40">
+                    <div>
                         
                         @if (session('status'))
-                            <div class="mb-6 rounded-2xl bg-emerald-500/10 border border-emerald-400/30 px-5 py-4 text-emerald-300 flex items-center gap-3">
-                                <span class="text-xl">✦</span>
-                                <span>{{ session('status') }}</span>
+                            <div class="mb-6 rounded-xl bg-splitwise-light border border-splitwise/30 px-5 py-4 text-splitwise-dark flex items-center gap-3 shadow-sm">
+                                <span class="text-xl">✓</span>
+                                <span class="font-medium">{{ session('status') }}</span>
                             </div>
                         @endif
 
                         @if ($errors->any())
-                            <div class="mb-6 rounded-2xl bg-red-500/10 border border-red-400/30 px-5 py-4 text-red-300">
+                            <div class="mb-6 rounded-xl bg-danger-light border border-danger/30 px-5 py-4 text-danger shadow-sm">
                                 <strong class="font-semibold">Please fix the errors below:</strong>
-                                <ul class="mt-2 list-disc pl-5 space-y-1">
+                                <ul class="mt-2 list-disc pl-5 space-y-1 text-sm">
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
@@ -55,7 +55,9 @@
                     </div>
                 </div>
             @else
-                @isset($slot) {{ $slot }} @endisset
+                <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 pt-24 lg:pt-8 min-h-screen">
+                    @isset($slot) {{ $slot }} @endisset
+                </div>
             @endif
         </main>
     </div>
