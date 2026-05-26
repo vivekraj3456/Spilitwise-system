@@ -60,9 +60,12 @@ class GroupController extends Controller
             'expenses' => fn ($query) => $query->with('payer')->latest('expense_date')->latest(),
         ]);
 
+        $balances = $balanceService->calculateForGroup($group);
+
         return view('groups.show', [
             'group' => $group,
-            'balances' => $balanceService->calculateForGroup($group),
+            'balances' => $balances,
+            'balancesById' => $balances->keyBy(fn ($b) => $b['user']->id),
         ]);
     }
 }

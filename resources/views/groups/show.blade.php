@@ -70,8 +70,12 @@
                         @foreach ($balances as $balance)
                             <tr class="table-tr">
                                 <td class="whitespace-nowrap px-6 py-4">
-                                    <div class="font-semibold text-slate-900">{{ $balance['user']->name }}</div>
-                                    <div class="text-sm text-slate-500">{{ $balance['user']->is_guest ? 'No account' : $balance['user']->email }}</div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="font-semibold text-slate-900">{{ $balance['user']->name }}</div>
+                                        <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold {{ $balance['status_badge'] }} ring-1 ring-current/10">{{ $balance['status_label'] }}</span>
+                                    </div>
+                                    <div class="mt-1 text-sm text-slate-500">{{ $balance['user']->is_guest ? 'No account' : $balance['user']->email }}</div>
+                                    <div class="mt-1 text-sm text-slate-500">{{ $balance['summary'] }}</div>
                                 </td>
                                 <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700">{{ \App\Services\Money::formatCents($balance['paid_cents']) }}</td>
                                 <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700">{{ \App\Services\Money::formatCents($balance['owed_cents']) }}</td>
@@ -93,10 +97,14 @@
                 </div>
                 <div class="divide-y divide-slate-100">
                     @foreach ($group->users as $member)
+                        @php $mBalance = $balancesById[$member->id] ?? null; @endphp
                         <div class="flex flex-col gap-3 px-6 py-4 transition duration-200 hover:bg-slate-50 sm:flex-row sm:items-center sm:justify-between">
                             <div>
                                 <div class="flex flex-wrap items-center gap-2">
                                     <p class="font-semibold text-slate-900">{{ $member->name }}</p>
+                                    @if ($mBalance)
+                                        <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold {{ $mBalance['status_badge'] }} ring-1 ring-current/10">{{ $mBalance['status_label'] }}</span>
+                                    @endif
                                     @if ($member->id === $group->owner_id)
                                         <span class="badge badge-neutral">Owner</span>
                                     @elseif ($member->is_guest)
@@ -106,6 +114,9 @@
                                 <p class="mt-1 text-sm text-slate-500">
                                     {{ $member->is_guest ? 'No account' : $member->email }}
                                 </p>
+                                @if ($mBalance)
+                                    <p class="mt-2 text-sm text-slate-500">{{ $mBalance['summary'] }}</p>
+                                @endif
                             </div>
                             @if (auth()->id() === $group->owner_id && $member->id !== $group->owner_id)
                                 <form method="POST" action="{{ route('groups.members.destroy', [$group, $member]) }}" data-loading-form>
