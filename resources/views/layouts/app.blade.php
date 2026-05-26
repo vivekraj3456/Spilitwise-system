@@ -11,17 +11,26 @@
     <link href="https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700&display=swap" rel="stylesheet" />
     <link href="https://fonts.bunny.net/css?family=manrope:400,500,600,700&display=swap" rel="stylesheet" />
 
+    <script>
+        (() => {
+            const stored = localStorage.getItem('theme');
+            if (stored === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-slate-50 text-slate-900 selection:bg-splitwise/20 selection:text-slate-900">
-    <div x-data="{ sidebarOpen: false }" class="min-h-screen">
+<body class="font-sans antialiased bg-slate-50 text-slate-900 selection:bg-splitwise/20 selection:text-slate-900 transition-colors duration-200 dark:bg-slate-950 dark:text-slate-100 dark:selection:bg-emerald-500/20 dark:selection:text-slate-100">
+    <div x-data="{ sidebarOpen: false }" x-init="$store.theme.init()" class="min-h-screen">
         @auth
             @include('layouts.navigation')
         @endauth
 
         @isset($header)
-            <header class="bg-white border-b border-slate-200 lg:pl-72 shadow-sm sticky top-0 z-20">
+            <header class="bg-white border-b border-slate-200 lg:pl-72 shadow-sm sticky top-0 z-20 dark:bg-slate-950 dark:border-slate-800">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
@@ -34,14 +43,14 @@
                     <div>
                         
                         @if (session('status'))
-                            <div class="mb-6 rounded-xl bg-splitwise-light border border-splitwise/30 px-5 py-4 text-splitwise-dark flex items-center gap-3 shadow-sm">
+                            <div class="mb-6 rounded-xl bg-splitwise-light border border-splitwise/30 px-5 py-4 text-splitwise-dark flex items-center gap-3 shadow-sm dark:bg-emerald-500/15 dark:border-emerald-500/30 dark:text-emerald-200">
                                 <span class="text-xl">✓</span>
                                 <span class="font-medium">{{ session('status') }}</span>
                             </div>
                         @endif
 
                         @if ($errors->any())
-                            <div class="mb-6 rounded-xl bg-danger-light border border-danger/30 px-5 py-4 text-danger shadow-sm">
+                            <div class="mb-6 rounded-xl bg-danger-light border border-danger/30 px-5 py-4 text-danger shadow-sm dark:bg-red-500/15 dark:border-red-500/30 dark:text-red-200">
                                 <strong class="font-semibold">Please fix the errors below:</strong>
                                 <ul class="mt-2 list-disc pl-5 space-y-1 text-sm">
                                     @foreach ($errors->all() as $error)

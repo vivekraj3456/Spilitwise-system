@@ -6,9 +6,28 @@
     display: none !important;
 }
 
+@layer base {
+    body {
+        @apply transition-colors duration-200;
+    }
+
+    input[type='text'],
+    input[type='email'],
+    input[type='password'],
+    input[type='number'],
+    input[type='date'],
+    input[type='search'],
+    input[type='tel'],
+    input[type='url'],
+    textarea,
+    select {
+        @apply dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500;
+    }
+}
+
 @layer components {
     .card {
-        @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+        @apply rounded-2xl border border-slate-200 bg-white shadow-sm transition-colors duration-200 dark:border-slate-800 dark:bg-slate-900/70 dark:shadow-none;
     }
 
     .card-hover {
@@ -16,11 +35,11 @@
     }
 
     .card-header {
-        @apply border-b border-slate-100 bg-slate-50 px-6 py-5;
+        @apply border-b border-slate-100 bg-slate-50 px-6 py-5 transition-colors duration-200 dark:border-slate-800 dark:bg-slate-900/70;
     }
 
     .btn {
-        @apply inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold shadow-sm transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-splitwise focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60;
+        @apply inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold shadow-sm transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-splitwise focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 dark:focus-visible:ring-offset-slate-950;
     }
 
     .btn-primary {
@@ -28,11 +47,11 @@
     }
 
     .btn-secondary {
-        @apply border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 active:scale-[0.99] transition-transform;
+        @apply border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 active:scale-[0.99] transition-transform dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-slate-100;
     }
 
     .btn-danger {
-        @apply border border-danger/30 bg-danger-light text-danger hover:bg-red-100 active:scale-[0.99] transition-transform;
+        @apply border border-danger/30 bg-danger-light text-danger hover:bg-red-100 active:scale-[0.99] transition-transform dark:border-red-500/40 dark:bg-red-500/10 dark:text-red-300 dark:hover:bg-red-500/20;
     }
 
     .badge {
@@ -40,34 +59,34 @@
     }
 
     .badge-neutral {
-        @apply bg-slate-100 text-slate-600;
+        @apply bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300;
     }
 
     .badge-brand {
-        @apply bg-splitwise-light text-splitwise-dark;
+        @apply bg-splitwise-light text-splitwise-dark dark:bg-emerald-500/15 dark:text-emerald-300;
     }
 
     .badge-danger {
-        @apply bg-danger-light text-danger;
+        @apply bg-danger-light text-danger dark:bg-red-500/15 dark:text-red-300;
     }
 
     .table-shell {
-        @apply overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm;
+        @apply overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-colors duration-200 dark:border-slate-800 dark:bg-slate-900/70 dark:shadow-none;
     }
 
     .table-head {
-        @apply bg-slate-50;
+        @apply bg-slate-50 transition-colors duration-200 dark:bg-slate-900;
     }
 
     .table-th {
-        @apply px-6 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500;
+        @apply px-6 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400;
     }
 
     .table-td {
-        @apply whitespace-nowrap px-6 py-4 text-sm text-slate-700;
+        @apply whitespace-nowrap px-6 py-4 text-sm text-slate-700 dark:text-slate-200;
     }
 
     .table-tr {
-        @apply transition duration-200 hover:bg-slate-50;
+        @apply transition duration-200 hover:bg-slate-50 dark:hover:bg-slate-800/50;
     }
 }

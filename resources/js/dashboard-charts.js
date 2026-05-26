@@ -12,6 +12,9 @@ import {
     Tooltip,
 } from 'chart.js';
 
+let monthlyChart = null;
+let categoryChart = null;
+
 Chart.register(
     ArcElement,
     CategoryScale,
@@ -49,17 +52,32 @@ function formatMoney(value) {
     return `₹${intPart}.${fractionPart}`;
 }
 
+function getChartTheme() {
+    const isDark = document.documentElement.classList.contains('dark');
+
+    return {
+        isDark,
+        textColor: isDark ? '#e2e8f0' : '#1e293b',
+        gridColor: isDark ? 'rgba(51, 65, 85, 0.7)' : 'rgba(226, 232, 240, 0.9)',
+        cardBorder: isDark ? '#0f172a' : '#ffffff',
+        lineFill: isDark ? 'rgba(91, 197, 167, 0.24)' : 'rgba(91, 197, 167, 0.18)',
+    };
+}
+
 export function initDashboardCharts() {
     const data = readDashboardChartData();
     if (!data) return;
 
+    const theme = getChartTheme();
+
     Chart.defaults.font.family = 'Manrope, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial';
-    Chart.defaults.color = '#1e293b'; // slate-800
+    Chart.defaults.color = theme.textColor;
 
     const monthlyCanvas = document.getElementById('monthly-expense-chart');
     if (monthlyCanvas && data.monthly) {
-        // eslint-disable-next-line no-new
-        new Chart(monthlyCanvas, {
+        if (monthlyChart) monthlyChart.destroy();
+
+        monthlyChart = new Chart(monthlyCanvas, {
             type: 'line',
             data: {
                 labels: data.monthly.labels,
@@ -68,13 +86,13 @@ export function initDashboardCharts() {
                         label: 'Spending',
                         data: data.monthly.values,
                         borderColor: '#4AA68A',
-                        backgroundColor: 'rgba(91, 197, 167, 0.18)',
+                        backgroundColor: theme.lineFill,
                         fill: true,
                         tension: 0.35,
                         pointRadius: 3,
                         pointHoverRadius: 5,
                         pointBackgroundColor: '#5BC5A7',
-                        pointBorderColor: '#FFFFFF',
+                        pointBorderColor: theme.cardBorder,
                         pointBorderWidth: 2,
                     },
                 ],
@@ -85,6 +103,11 @@ export function initDashboardCharts() {
                 plugins: {
                     legend: { display: false },
                     tooltip: {
+                        backgroundColor: theme.isDark ? 'rgba(15, 23, 42, 0.95)' : '#ffffff',
+                        titleColor: theme.textColor,
+                        bodyColor: theme.textColor,
+                        borderColor: theme.isDark ? 'rgba(51, 65, 85, 0.8)' : 'rgba(226, 232, 240, 0.9)',
+                        borderWidth: 1,
                         callbacks: {
                             label: (ctx) => formatMoney(ctx.parsed.y),
                         },
@@ -97,7 +120,7 @@ export function initDashboardCharts() {
                     },
                     y: {
                         beginAtZero: true,
-                        grid: { color: 'rgba(226, 232, 240, 0.9)' },
+                        grid: { color: theme.gridColor },
                         ticks: {
                             callback: (value) => formatMoney(value),
                         },
@@ -109,23 +132,35 @@ export function initDashboardCharts() {
 
     const categoryCanvas = document.getElementById('category-doughnut-chart');
     if (categoryCanvas && data.categories) {
-        // eslint-disable-next-line no-new
-        new Chart(categoryCanvas, {
+        if (categoryChart) categoryChart.destroy();
+
+        const categoryColors = theme.isDark
+            ? [
+                'rgba(91, 197, 167, 0.95)',
+                'rgba(52, 211, 153, 0.9)',
+                'rgba(148, 163, 184, 0.75)',
+                'rgba(71, 85, 105, 0.85)',
+                'rgba(30, 41, 59, 0.95)',
+                'rgba(248, 113, 113, 0.85)',
+            ]
+            : [
+                'rgba(91, 197, 167, 0.95)',
+                'rgba(74, 166, 138, 0.95)',
+                'rgba(15, 23, 42, 0.80)',
+                'rgba(100, 116, 139, 0.80)',
+                'rgba(226, 232, 240, 1)',
+                'rgba(255, 101, 47, 0.85)',
+            ];
+
+        categoryChart = new Chart(categoryCanvas, {
             type: 'doughnut',
             data: {
                 labels: data.categories.labels,
                 datasets: [
                     {
                         data: data.categories.values,
-                        backgroundColor: [
-                            'rgba(91, 197, 167, 0.95)',
-                            'rgba(74, 166, 138, 0.95)',
-                            'rgba(15, 23, 42, 0.80)',
-                            'rgba(100, 116, 139, 0.80)',
-                            'rgba(226, 232, 240, 1)',
-                            'rgba(255, 101, 47, 0.85)',
-                        ],
-                        borderColor: '#FFFFFF',
+                        backgroundColor: categoryColors,
+                        borderColor: theme.cardBorder,
                         borderWidth: 2,
                         hoverOffset: 6,
                     },
@@ -143,9 +178,15 @@ export function initDashboardCharts() {
                             boxHeight: 10,
                             usePointStyle: true,
                             pointStyle: 'circle',
+                            color: theme.textColor,
                         },
                     },
                     tooltip: {
+                        backgroundColor: theme.isDark ? 'rgba(15, 23, 42, 0.95)' : '#ffffff',
+                        titleColor: theme.textColor,
+                        bodyColor: theme.textColor,
+                        borderColor: theme.isDark ? 'rgba(51, 65, 85, 0.8)' : 'rgba(226, 232, 240, 0.9)',
+                        borderWidth: 1,
                         callbacks: {
                             label: (ctx) => {
                                 const val = ctx.parsed;

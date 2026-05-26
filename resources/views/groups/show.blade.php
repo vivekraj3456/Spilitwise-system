@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="space-y-8">
-        <section class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+        <section class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900/70 dark:shadow-none">
             <div class="bg-gradient-to-r from-slate-950 to-teal-900 px-6 py-7 text-white sm:px-8">
                 <div class="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
                     <div>
@@ -29,22 +29,22 @@
             </div>
 
             <div class="grid gap-4 p-6 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="rounded-xl bg-slate-50 p-4">
-                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Members</p>
-                    <p class="mt-1 text-2xl font-bold text-slate-900">{{ $group->users->count() }}</p>
+                <div class="rounded-xl bg-slate-50 p-4 dark:bg-slate-900/70">
+                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Members</p>
+                    <p class="mt-1 text-2xl font-bold text-slate-900 dark:text-slate-100">{{ $group->users->count() }}</p>
                 </div>
-                <div class="rounded-xl bg-slate-50 p-4">
-                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Expenses</p>
-                    <p class="mt-1 text-2xl font-bold text-slate-900">{{ $group->expenses->count() }}</p>
+                <div class="rounded-xl bg-slate-50 p-4 dark:bg-slate-900/70">
+                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Expenses</p>
+                    <p class="mt-1 text-2xl font-bold text-slate-900 dark:text-slate-100">{{ $group->expenses->count() }}</p>
                 </div>
-                <div class="rounded-xl bg-slate-50 p-4 sm:col-span-2">
-                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Members</p>
+                <div class="rounded-xl bg-slate-50 p-4 sm:col-span-2 dark:bg-slate-900/70">
+                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Members</p>
                     <div class="mt-2 flex flex-wrap gap-2">
                         @foreach ($group->users->take(6) as $member)
-                            <span class="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-700 ring-1 ring-slate-200">{{ $member->name }}</span>
+                            <span class="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-700 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-200 dark:ring-slate-700">{{ $member->name }}</span>
                         @endforeach
                         @if ($group->users->count() > 6)
-                            <span class="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-500 ring-1 ring-slate-200">+{{ $group->users->count() - 6 }} more</span>
+                            <span class="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-500 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:ring-slate-700">+{{ $group->users->count() - 6 }} more</span>
                         @endif
                     </div>
                 </div>
@@ -53,8 +53,8 @@
 
         <section class="table-shell">
             <div class="card-header">
-                <h2 class="font-display text-lg font-semibold text-slate-900">Balances</h2>
-                <p class="mt-1 text-sm text-slate-500">Paid, share, and net position for each member.</p>
+                <h2 class="font-display text-lg font-semibold text-slate-900 dark:text-slate-100">Balances</h2>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Paid, share, and net position for each member.</p>
             </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-slate-100">
@@ -66,20 +66,20 @@
                             <th class="table-th">Net</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100 bg-white">
+                    <tbody class="divide-y divide-slate-100 bg-white dark:divide-slate-800 dark:bg-slate-900/70">
                         @foreach ($balances as $balance)
                             <tr class="table-tr">
                                 <td class="whitespace-nowrap px-6 py-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="font-semibold text-slate-900">{{ $balance['user']->name }}</div>
+                                        <div class="font-semibold text-slate-900 dark:text-slate-100">{{ $balance['user']->name }}</div>
                                         <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold {{ $balance['status_badge'] }} ring-1 ring-current/10">{{ $balance['status_label'] }}</span>
                                     </div>
-                                    <div class="mt-1 text-sm text-slate-500">{{ $balance['user']->is_guest ? 'No account' : $balance['user']->email }}</div>
-                                    <div class="mt-1 text-sm text-slate-500">{{ $balance['summary'] }}</div>
+                                    <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ $balance['user']->is_guest ? 'No account' : $balance['user']->email }}</div>
+                                    <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ $balance['summary'] }}</div>
                                 </td>
-                                <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700">{{ \App\Services\Money::formatCents($balance['paid_cents']) }}</td>
-                                <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700">{{ \App\Services\Money::formatCents($balance['owed_cents']) }}</td>
-                                <td class="whitespace-nowrap px-6 py-4 text-sm font-bold {{ $balance['net_cents'] > 0 ? 'text-splitwise-dark' : ($balance['net_cents'] < 0 ? 'text-danger' : 'text-slate-500') }}">
+                                <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700 dark:text-slate-200">{{ \App\Services\Money::formatCents($balance['paid_cents']) }}</td>
+                                <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700 dark:text-slate-200">{{ \App\Services\Money::formatCents($balance['owed_cents']) }}</td>
+                                <td class="whitespace-nowrap px-6 py-4 text-sm font-bold {{ $balance['net_cents'] > 0 ? 'text-splitwise-dark dark:text-emerald-300' : ($balance['net_cents'] < 0 ? 'text-danger dark:text-red-300' : 'text-slate-500 dark:text-slate-400') }}">
                                     {{ \App\Services\Money::formatCents($balance['net_cents']) }}
                                 </td>
                             </tr>
@@ -92,16 +92,16 @@
         <section class="grid gap-6 xl:grid-cols-[0.85fr_1fr]">
             <div class="card overflow-hidden">
                 <div class="card-header">
-                    <h2 class="font-display text-lg font-semibold text-slate-900">Members</h2>
-                    <p class="mt-1 text-sm text-slate-500">People included in new equal splits.</p>
+                    <h2 class="font-display text-lg font-semibold text-slate-900 dark:text-slate-100">Members</h2>
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">People included in new equal splits.</p>
                 </div>
                 <div class="divide-y divide-slate-100">
                     @foreach ($group->users as $member)
                         @php $mBalance = $balancesById[$member->id] ?? null; @endphp
-                        <div class="flex flex-col gap-3 px-6 py-4 transition duration-200 hover:bg-slate-50 sm:flex-row sm:items-center sm:justify-between">
+                        <div class="flex flex-col gap-3 px-6 py-4 transition duration-200 hover:bg-slate-50 dark:hover:bg-slate-800/40 sm:flex-row sm:items-center sm:justify-between">
                             <div>
                                 <div class="flex flex-wrap items-center gap-2">
-                                    <p class="font-semibold text-slate-900">{{ $member->name }}</p>
+                                    <p class="font-semibold text-slate-900 dark:text-slate-100">{{ $member->name }}</p>
                                     @if ($mBalance)
                                         <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold {{ $mBalance['status_badge'] }} ring-1 ring-current/10">{{ $mBalance['status_label'] }}</span>
                                     @endif
@@ -111,11 +111,11 @@
                                         <span class="badge badge-neutral">Guest</span>
                                     @endif
                                 </div>
-                                <p class="mt-1 text-sm text-slate-500">
+                                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
                                     {{ $member->is_guest ? 'No account' : $member->email }}
                                 </p>
                                 @if ($mBalance)
-                                    <p class="mt-2 text-sm text-slate-500">{{ $mBalance['summary'] }}</p>
+                                    <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ $mBalance['summary'] }}</p>
                                 @endif
                             </div>
                             @if (auth()->id() === $group->owner_id && $member->id !== $group->owner_id)
@@ -136,20 +136,20 @@
 
             @if (auth()->id() === $group->owner_id)
                 <div class="card p-6">
-                    <h2 class="font-display text-lg font-semibold text-slate-900">Add member</h2>
-                    <p class="mt-1 text-sm text-slate-500">Add people to this group and split expenses together.</p>
+                    <h2 class="font-display text-lg font-semibold text-slate-900 dark:text-slate-100">Add member</h2>
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Add people to this group and split expenses together.</p>
                     <form class="mt-5 space-y-4" method="POST" action="{{ route('groups.members.store', $group) }}" data-loading-form>
                         @csrf
                         <div>
-                            <label for="member" class="block text-sm font-semibold text-slate-800">Member name or email</label>
+                            <label for="member" class="block text-sm font-semibold text-slate-800 dark:text-slate-200">Member name or email</label>
                             <input id="member"
                                    name="member"
                                    type="text"
                                    value="{{ old('member') }}"
                                    placeholder="Enter member name or email"
                                    required
-                                class="mt-2 block w-full rounded-xl border-slate-300 bg-white placeholder:text-slate-400 focus:border-splitwise focus:ring-splitwise shadow-sm focus:border-splitwise focus:ring-splitwise/60">
-                            <p class="mt-2 text-sm text-slate-500">If the email matches a registered user, their account will be added. Otherwise we'll add a guest member.</p>
+                                class="mt-2 block w-full rounded-xl border-slate-300 bg-white placeholder:text-slate-400 focus:border-splitwise focus:ring-splitwise shadow-sm focus:border-splitwise focus:ring-splitwise/60 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500">
+                            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">If the email matches a registered user, their account will be added. Otherwise we'll add a guest member.</p>
                             @error('member')
                                 <p class="mt-2 text-sm text-danger">{{ $message }}</p>
                             @enderror
@@ -167,8 +167,8 @@
         <section class="table-shell">
             <div class="flex flex-col gap-3 border-b border-slate-100 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h2 class="font-display text-lg font-semibold text-slate-900">Expenses</h2>
-                    <p class="mt-1 text-sm text-slate-500">Shared costs recorded for this group.</p>
+                    <h2 class="font-display text-lg font-semibold text-slate-900 dark:text-slate-100">Expenses</h2>
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Shared costs recorded for this group.</p>
                 </div>
                 <a href="{{ route('groups.expenses.create', $group) }}"
                    class="btn btn-primary">
@@ -178,8 +178,8 @@
 
             @if ($group->expenses->isEmpty())
                 <div class="px-6 py-10 text-center">
-                    <p class="text-sm font-semibold text-slate-800">No expenses yet</p>
-                    <p class="mt-1 text-sm text-slate-500">Add the first expense to calculate member balances.</p>
+                    <p class="text-sm font-semibold text-slate-800 dark:text-slate-100">No expenses yet</p>
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Add the first expense to calculate member balances.</p>
                 </div>
             @else
                 <div class="overflow-x-auto">
@@ -193,18 +193,18 @@
                                 <th class="table-th">Date</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-100 bg-white">
+                        <tbody class="divide-y divide-slate-100 bg-white dark:divide-slate-800 dark:bg-slate-900/70">
                             @foreach ($group->expenses as $expense)
                                 <tr class="table-tr">
                                     <td class="whitespace-nowrap px-6 py-4">
-                                        <a href="{{ route('groups.expenses.show', [$group, $expense]) }}" class="font-semibold text-slate-900 transition hover:text-splitwise-dark">{{ $expense->title }}</a>
+                                        <a href="{{ route('groups.expenses.show', [$group, $expense]) }}" class="font-semibold text-slate-900 transition hover:text-splitwise-dark dark:text-slate-100 dark:hover:text-emerald-300">{{ $expense->title }}</a>
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4">
                                         <span class="badge badge-neutral">{{ $expense->category ?: 'General' }}</span>
                                     </td>
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700">{{ $expense->payer->name }}</td>
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm font-bold text-slate-900">{{ \App\Services\Money::formatCents($expense->amount_cents) }}</td>
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-500">{{ $expense->expense_date->format('M j, Y') }}</td>
+                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700 dark:text-slate-200">{{ $expense->payer->name }}</td>
+                                    <td class="whitespace-nowrap px-6 py-4 text-sm font-bold text-slate-900 dark:text-slate-100">{{ \App\Services\Money::formatCents($expense->amount_cents) }}</td>
+                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-500 dark:text-slate-400">{{ $expense->expense_date->format('M j, Y') }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

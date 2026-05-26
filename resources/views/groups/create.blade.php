@@ -5,9 +5,9 @@
 @section('content')
     <div class="mx-auto max-w-2xl space-y-6">
         <section>
-            <p class="text-sm font-semibold uppercase tracking-wide text-splitwise-dark">Groups</p>
-            <h1 class="mt-2 font-display text-3xl font-bold tracking-tight text-slate-900">New group</h1>
-            <p class="mt-3 text-sm leading-6 text-slate-600">Create a shared space for expenses and balances.</p>
+            <p class="text-sm font-semibold uppercase tracking-wide text-splitwise-dark dark:text-emerald-300">Groups</p>
+            <h1 class="mt-2 font-display text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-100">New group</h1>
+            <p class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">Create a shared space for expenses and balances.</p>
         </section>
 
         <section class="card p-6">
@@ -15,13 +15,13 @@
                 @csrf
 
                 <div>
-                    <label for="name" class="block text-sm font-semibold text-slate-800">Group name</label>
+                          <label for="name" class="block text-sm font-semibold text-slate-800 dark:text-slate-200">Group name</label>
                     <input id="name"
                            name="name"
                            value="{{ old('name') }}"
                            required
                            autofocus
-                              class="mt-2 block w-full rounded-xl border-slate-300 bg-white placeholder:text-slate-400 focus:border-splitwise focus:ring-splitwise shadow-sm focus:border-splitwise focus:ring-splitwise/60">
+                                        class="mt-2 block w-full rounded-xl border-slate-300 bg-white placeholder:text-slate-400 focus:border-splitwise focus:ring-splitwise shadow-sm focus:border-splitwise focus:ring-splitwise/60 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500">
                     @error('name')
                         <p class="mt-2 text-sm text-danger">{{ $message }}</p>
                     @enderror

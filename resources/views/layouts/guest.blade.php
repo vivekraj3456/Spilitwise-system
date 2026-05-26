@@ -11,10 +11,19 @@
     <link href="https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700&display=swap" rel="stylesheet" />
     <link href="https://fonts.bunny.net/css?family=manrope:400,500,600,700&display=swap" rel="stylesheet" />
 
+    <script>
+        (() => {
+            const stored = localStorage.getItem('theme');
+            if (stored === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-slate-50 min-h-screen text-slate-900">
+<body class="font-sans antialiased bg-slate-50 min-h-screen text-slate-900 transition-colors duration-200 dark:bg-slate-950 dark:text-slate-100" x-data x-init="$store.theme.init()">
     <div class="min-h-screen flex flex-col items-center py-6 pt-12 sm:pt-24 px-4 sm:justify-start">
         <div class="flex flex-col items-center gap-3 mb-8">
             <a href="/" class="flex flex-col items-center gap-4 group">
@@ -22,13 +31,13 @@
                     <x-application-logo class="h-8 w-8 fill-white" />
                 </span>
                 <div class="text-center">
-                    <p class="text-2xl font-bold tracking-tight text-slate-900">Expense Splitter</p>
-                    <p class="text-sm font-medium text-slate-500 mt-1">Smart &middot; Fair &middot; Effortless</p>
+                    <p class="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Expense Splitter</p>
+                    <p class="text-sm font-medium text-slate-500 mt-1 dark:text-slate-400">Smart &middot; Fair &middot; Effortless</p>
                 </div>
             </a>
         </div>
 
-        <div class="w-full sm:max-w-md px-8 py-10 bg-white border border-slate-200 shadow-sm rounded-2xl">
+        <div class="w-full sm:max-w-md px-8 py-10 bg-white border border-slate-200 shadow-sm rounded-2xl dark:bg-slate-900/70 dark:border-slate-800 dark:shadow-none">
             {{ $slot }}
         </div>
     </div>
