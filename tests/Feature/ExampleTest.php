@@ -61,7 +61,7 @@ class ExampleTest extends TestCase
         ]);
 
         $this->actingAs($owner)
-            ->post(route('groups.members.store', $group), ['email' => $member->email])
+            ->post(route('groups.members.store', $group), ['member' => $member->email])
             ->assertRedirect(route('groups.show', $group));
 
         $this->assertDatabaseHas('group_user', [

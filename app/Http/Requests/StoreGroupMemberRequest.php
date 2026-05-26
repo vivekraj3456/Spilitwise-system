@@ -17,7 +17,7 @@ class StoreGroupMemberRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email', 'exists:users,email'],
+            'member' => ['required', 'string', 'max:255'],
         ];
     }
 }

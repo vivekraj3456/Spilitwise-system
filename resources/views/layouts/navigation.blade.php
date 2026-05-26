@@ -116,7 +116,7 @@
             <form method="POST" action="{{ route('logout') }}" data-loading-form>
                 @csrf
                 <button type="submit"
-                        class="inline-flex items-center rounded-xl bg-splitwise px-4 py-2 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-splitwise-dark disabled:cursor-not-allowed disabled:opacity-70"
+                        class="btn btn-primary"
                         data-loading-label="Logging out...">
                     Logout
                 </button>

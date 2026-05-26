@@ -15,8 +15,10 @@ class Expense extends Model
         'group_id',
         'paid_by_user_id',
         'title',
+        'category',
         'amount_cents',
         'expense_date',
+        'receipt_image',
     ];
 
     protected function casts(): array

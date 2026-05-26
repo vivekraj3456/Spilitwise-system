@@ -5,3 +5,69 @@
 [x-cloak] {
     display: none !important;
 }
+
+@layer components {
+    .card {
+        @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+    }
+
+    .card-hover {
+        @apply transition duration-200 hover:-translate-y-0.5 hover:shadow-md;
+    }
+
+    .card-header {
+        @apply border-b border-slate-100 bg-slate-50 px-6 py-5;
+    }
+
+    .btn {
+        @apply inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-semibold shadow-sm transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-splitwise focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60;
+    }
+
+    .btn-primary {
+        @apply bg-splitwise text-white hover:bg-splitwise-dark active:scale-[0.98] transition-transform;
+    }
+
+    .btn-secondary {
+        @apply border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-900 active:scale-[0.99] transition-transform;
+    }
+
+    .btn-danger {
+        @apply border border-danger/30 bg-danger-light text-danger hover:bg-red-100 active:scale-[0.99] transition-transform;
+    }
+
+    .badge {
+        @apply inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold;
+    }
+
+    .badge-neutral {
+        @apply bg-slate-100 text-slate-600;
+    }
+
+    .badge-brand {
+        @apply bg-splitwise-light text-splitwise-dark;
+    }
+
+    .badge-danger {
+        @apply bg-danger-light text-danger;
+    }
+
+    .table-shell {
+        @apply overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm;
+    }
+
+    .table-head {
+        @apply bg-slate-50;
+    }
+
+    .table-th {
+        @apply px-6 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-slate-500;
+    }
+
+    .table-td {
+        @apply whitespace-nowrap px-6 py-4 text-sm text-slate-700;
+    }
+
+    .table-tr {
+        @apply transition duration-200 hover:bg-slate-50;
+    }
+}

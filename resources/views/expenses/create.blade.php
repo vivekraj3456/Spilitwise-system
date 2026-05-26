@@ -7,17 +7,17 @@
         <section class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
                 <p class="text-sm font-semibold uppercase tracking-wide text-splitwise-dark">{{ $group->name }}</p>
-                <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">Add expense</h1>
+                <h1 class="mt-2 font-display text-3xl font-bold tracking-tight text-slate-900">Add expense</h1>
                 <p class="mt-3 text-sm leading-6 text-slate-600">This expense will be split equally across all current group members.</p>
             </div>
             <a href="{{ route('groups.show', $group) }}"
-               class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition duration-200 hover:bg-slate-50 hover:text-slate-900">
+               class="btn btn-secondary">
                 Back to Group
             </a>
         </section>
 
-        <section class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <form class="space-y-5" method="POST" action="{{ route('groups.expenses.store', $group) }}" data-loading-form>
+        <section class="card p-6">
+            <form class="space-y-5" method="POST" action="{{ route('groups.expenses.store', $group) }}" enctype="multipart/form-data" data-loading-form>
                 @csrf
 
                 <div>
@@ -79,21 +79,54 @@
                     @enderror
                 </div>
 
+                <div>
+                    <label for="category" class="block text-sm font-semibold text-slate-800">Category</label>
+                    <select id="category"
+                            name="category"
+                            class="mt-2 block w-full rounded-xl border-slate-300 bg-white placeholder:text-slate-400 focus:border-splitwise focus:ring-splitwise shadow-sm focus:border-splitwise focus:ring-splitwise/60">
+                        @php
+                            $categories = ['General', 'Food', 'Travel', 'Groceries', 'Bills', 'Shopping', 'Rent', 'Entertainment', 'Other'];
+                            $selectedCategory = old('category', 'General');
+                        @endphp
+                        @foreach ($categories as $category)
+                            <option value="{{ $category }}" @selected($selectedCategory === $category)>
+                                {{ $category }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('category')
+                        <p class="mt-2 text-sm text-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <div class="rounded-xl bg-slate-50 p-4">
                     <div class="flex flex-wrap gap-2">
-                        <span class="rounded-full bg-splitwise-light px-3 py-1 text-xs font-semibold text-splitwise-dark">Equal split</span>
-                        <span class="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-600 ring-1 ring-slate-200">{{ $members->count() }} members</span>
+                        <span class="badge badge-brand">Equal split</span>
+                        <span class="badge badge-neutral bg-white ring-1 ring-slate-200">{{ $members->count() }} members</span>
                     </div>
+                </div>
+
+                <div>
+                    <label for="receipt_image" class="block text-sm font-semibold text-slate-800">Receipt (optional)</label>
+                    <input id="receipt_image"
+                           name="receipt_image"
+                           type="file"
+                           accept="image/*"
+                           class="mt-2 block w-full rounded-xl border-slate-300 bg-white text-sm text-slate-700 file:mr-4 file:rounded-lg file:border-0 file:bg-slate-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-slate-700 hover:file:bg-slate-200 focus:border-splitwise focus:ring-splitwise shadow-sm focus:border-splitwise focus:ring-splitwise/60">
+                    <p class="mt-2 text-sm text-slate-500">PNG, JPG, GIF, SVG, or WEBP up to 5MB.</p>
+                    @error('receipt_image')
+                        <p class="mt-2 text-sm text-danger">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div class="flex flex-wrap gap-3">
                     <button type="submit"
-                            class="inline-flex items-center justify-center rounded-xl bg-splitwise px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition duration-200 hover:bg-splitwise-dark disabled:cursor-not-allowed disabled:opacity-70"
+                            class="btn btn-primary"
                             data-loading-label="Saving...">
                         Save Expense
                     </button>
                     <a href="{{ route('groups.show', $group) }}"
-                       class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition duration-200 hover:bg-slate-50 hover:text-slate-900">
+                       class="btn btn-secondary">
                         Cancel
                     </a>
                 </div>

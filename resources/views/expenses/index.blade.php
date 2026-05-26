@@ -6,15 +6,15 @@
     <div class="space-y-8">
         <section>
             <p class="text-sm font-semibold uppercase tracking-wide text-splitwise-dark">Expenses</p>
-            <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">All expenses</h1>
+            <h1 class="mt-2 font-display text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">All expenses</h1>
             <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
                 A consolidated list of transactions from every group you belong to.
             </p>
         </section>
 
-        <section class="rounded-xl border border-slate-200 bg-white shadow-sm">
-            <div class="border-b border-slate-100 px-6 py-5">
-                <h2 class="text-lg font-semibold text-slate-900">Transactions</h2>
+        <section class="table-shell">
+            <div class="card-header">
+                <h2 class="font-display text-lg font-semibold text-slate-900">Transactions</h2>
                 <p class="mt-1 text-sm text-slate-500">Sorted by newest first.</p>
             </div>
 
@@ -26,27 +26,27 @@
             @else
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-slate-100">
-                        <thead class="bg-slate-50">
+                        <thead class="table-head">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Expense</th>
-                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Group</th>
-                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Category</th>
-                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Paid by</th>
-                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Amount</th>
-                                <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-slate-500">Date</th>
+                                <th class="table-th">Expense</th>
+                                <th class="table-th">Group</th>
+                                <th class="table-th">Category</th>
+                                <th class="table-th">Paid by</th>
+                                <th class="table-th">Amount</th>
+                                <th class="table-th">Date</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100 bg-white">
                             @foreach ($expenses as $expense)
-                                <tr class="transition duration-200 hover:bg-slate-50">
+                                <tr class="table-tr">
                                     <td class="whitespace-nowrap px-6 py-4">
-                                        <a href="{{ route('groups.expenses.show', [$expense->group, $expense]) }}" class="font-semibold text-slate-900 transition hover:text-splitwise-dark">{{ $expense->title }}</a>
+                                        <a href="{{ route('groups.expenses.show', [$expense->group, $expense]) }}" class="font-semibold text-slate-900 transition hover:text-splitwise-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-splitwise focus-visible:ring-offset-2 rounded-md">{{ $expense->title }}</a>
                                     </td>
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700">{{ $expense->group->name }}</td>
+                                    <td class="table-td">{{ $expense->group->name }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">
-                                        <span class="rounded-full bg-splitwise-light px-2.5 py-1 text-xs font-semibold text-splitwise-dark">Equal split</span>
+                                        <span class="badge badge-neutral">{{ $expense->category ?: 'General' }}</span>
                                     </td>
-                                    <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-700">{{ $expense->payer->name }}</td>
+                                    <td class="table-td">{{ $expense->payer->name }}</td>
                                     <td class="whitespace-nowrap px-6 py-4 text-sm font-bold text-slate-900">{{ \App\Services\Money::formatCents($expense->amount_cents) }}</td>
                                     <td class="whitespace-nowrap px-6 py-4 text-sm text-slate-500">{{ $expense->expense_date->format('M j, Y') }}</td>
                                 </tr>

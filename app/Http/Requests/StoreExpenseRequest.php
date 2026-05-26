@@ -18,9 +18,11 @@ class StoreExpenseRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
+            'category' => ['nullable', 'string', 'max:50'],
             'amount' => ['required', 'regex:/^(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d{1,2})?$/'],
             'paid_by_user_id' => ['required', 'integer', 'exists:users,id'],
             'expense_date' => ['required', 'date'],
+            'receipt_image' => ['nullable', 'image', 'max:5120'],
         ];
     }
 

@@ -14,7 +14,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans antialiased bg-slate-50 text-slate-900">
+<body class="font-sans antialiased bg-slate-50 text-slate-900 selection:bg-splitwise/20 selection:text-slate-900">
     <div x-data="{ sidebarOpen: false }" class="min-h-screen">
         @auth
             @include('layouts.navigation')

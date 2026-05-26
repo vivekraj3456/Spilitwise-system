@@ -30,6 +30,21 @@ class PasswordResetTest extends TestCase
         Notification::assertSentTo($user, ResetPassword::class);
     }
 
+    public function test_guest_member_cannot_request_password_reset_link(): void
+    {
+        Notification::fake();
+
+        $guest = User::factory()->create([
+            'is_guest' => true,
+            'email' => 'guest+'.fake()->uuid().'@guest.local',
+        ]);
+
+        $this->post('/forgot-password', ['email' => $guest->email])
+            ->assertSessionHasErrors('email');
+
+        Notification::assertNothingSent();
+    }
+
     public function test_reset_password_screen_can_be_rendered(): void
     {
         Notification::fake();

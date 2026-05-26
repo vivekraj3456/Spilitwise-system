@@ -11,6 +11,7 @@ use App\Services\EqualSplitCalculator;
 use App\Services\Money;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -51,6 +52,9 @@ class ExpenseController extends Controller
         $validated = $request->validated();
         $amountCents = Money::parseToCents($validated['amount']);
 
+        /** @var UploadedFile|null $receiptImage */
+        $receiptImage = $request->file('receipt_image');
+
         if ($amountCents < 1) {
             throw ValidationException::withMessages(['amount' => 'Expense amount must be greater than zero.']);
         }
@@ -66,6 +70,7 @@ class ExpenseController extends Controller
                 'group_id' => $group->id,
                 'paid_by_user_id' => $validated['paid_by_user_id'],
                 'title' => $validated['title'],
+                'category' => $validated['category'] ?? 'General',
                 'amount_cents' => $amountCents,
                 'expense_date' => $validated['expense_date'],
             ]);
@@ -80,6 +85,11 @@ class ExpenseController extends Controller
 
             return $expense;
         });
+
+        if ($receiptImage !== null) {
+            $path = $receiptImage->store('receipts', 'public');
+            $expense->forceFill(['receipt_image' => $path])->save();
+        }
 
         return redirect()
             ->route('groups.expenses.show', [$group, $expense])
